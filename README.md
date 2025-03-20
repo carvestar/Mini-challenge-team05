@@ -6,7 +6,7 @@
 
 - **이름**: 박주원
 - **학번**: 20232500
-- **GitHub**: [JUWON PARK][https://github.com/parkj00won]
+- **GitHub**: [JUWON PARK](https://github.com/parkj00won)
 
 ---
 
