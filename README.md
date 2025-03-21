@@ -10,9 +10,9 @@
 
 ---
 
-- **이름**: 
-- **학번**: 
-- **GitHub**:
+- **이름**: 서유민
+- **학번**: 20242517
+- **GitHub**: [carvestar](https://github.com/carvestar)
 
 ---
 
