@@ -16,9 +16,9 @@
 
 ---
 
-- **이름**: 
-- **학번**: 
-- **GitHub**:
+- **이름**: 임준현
+- **학번**: 20251272
+- **GitHub**:[JUNHYUN IM](https://github.com/wnsgus-the-creator)
 
 ---
 
