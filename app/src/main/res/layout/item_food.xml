@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:background="#FFFFFF"
+    android:gravity="center_vertical">
+
+    <!-- 식재료명 -->
+    <TextView
+        android:id="@+id/tvFoodName"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="wrap_content"
+        android:text="달걀"
+        android:textSize="18sp"
+        android:textColor="#222222"/>
+
+    <!-- 유통기한 -->
+    <TextView
+        android:id="@+id/tvExpiry"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="wrap_content"
+        android:text="유통기한: 2024-07-15"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:textColor="#5F6368"/>
+
+    <!-- '경고' 표시 (유통기한 임박 시 빨간색! 동적으로 제어) -->
+    <TextView
+        android:id="@+id/tvWarning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="경고"
+        android:textColor="#D32F2F"
+        android:background="#FFEEEE"
+        android:padding="6dp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <!-- 수정 버튼 -->
+    <Button
+        android:id="@+id/btnEditFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="식재료 수정"
+        android:textSize="14sp"
+        android:layout_marginStart="10dp"/>
+</LinearLayout>
