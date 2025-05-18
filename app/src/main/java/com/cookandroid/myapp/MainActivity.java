@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         foodList = new ArrayList<>();
         foodList.add(new FoodItem("우유", "2025-05-25"));
-        foodList.add(new FoodItem("계란", "2025-05-20"));
+        foodList.add(new FoodItem("달걀", "2025-05-20"));
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

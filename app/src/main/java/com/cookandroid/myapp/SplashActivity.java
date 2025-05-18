@@ -19,7 +19,7 @@ public class SplashActivity extends Activity {
             public void run() {
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(intent);
-                finish(); // 스플래시 액티비티 종료
+                finish();
             }
         }, 3000);
     }
