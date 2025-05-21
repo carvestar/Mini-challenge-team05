@@ -1,30 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@drawable/bg_gradient"
+    android:padding="24dp">
+<!-- "@drawable/bg_gradient" "#E3ECE5" -->
+    <!-- 상단 인삿말 -->
 
-    <!-- 앱 이름 -->
-    <TextView
-        android:id="@+id/tvAppName"
+
+    <!-- 하단 마스코트 이미지 -->
+
+
+    <LinearLayout
+        android:id="@+id/textContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="냉장고 지킴이"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
-        android:textColor="#5A5A5A" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
 
-    <!-- 앱 로고/사진(예시 이미지 사용) -->
+
+        <TextView
+            android:id="@+id/subText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="오늘도\n냉장고 지키러 가볼까?"
+            android:textColor="#444444"
+            android:textSize="20sp"
+            android:textStyle="normal"/>
+
+
+        <TextView
+            android:id="@+id/mainText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="냉장고\n지키미"
+            android:textColor="#195F4D"
+            android:textSize="65sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
     <ImageView
-        android:id="@+id/imgLogo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_below="@+id/tvAppName"
+        android:id="@+id/mascotImage"
+        android:layout_width="232dp"
+        android:layout_height="393dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="55dp"
+        android:contentDescription="냉장고 지키미 마스코트"
+        android:src="@drawable/mascoat" />
+
+    <View
+        android:id="@+id/bottomBox"
+        android:layout_width="1500dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/bottom_box_bg" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/bottomBox"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/title" />
+        android:layout_marginBottom="10dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="start"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp" />
 
 
 </RelativeLayout>

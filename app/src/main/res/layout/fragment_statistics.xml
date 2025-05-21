@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 냉장고 통계 및 현황 화면
+요구사항
+1. 전체 식재료 개수와 유통기한 임박 식재료 개수를 표시.
+2.카테고리별 분포를 Pie Chart 등으로 시각화.
+3. 요약 정보 제공: "이번 달 안에 소진해야 할 재료" 등.-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#F6F6F6">
+    <!-- #E3ECE5 #F6F6F6 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- 화면 타이틀 -->
+        <TextView
+            android:id="@+id/tvStatisticsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="냉장고 통계/현황"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:background="#195F4D"
+            android:textColor="#FFFFFF" />
+
+        <!-- 전체 식재료 개수 -->
+        <TextView
+            android:id="@+id/tvTotalItems"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="전체 식재료: 20개"
+            android:textSize="18sp"
+            android:textColor="#195F4D"
+            android:padding="8dp" />
+
+        <!-- 임박한 식재료 개수 -->
+        <TextView
+            android:id="@+id/tvExpiringItems"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="유통기한 임박: 3개"
+            android:textSize="18sp"
+            android:textColor="#FF6347"
+            android:padding="8dp" />
+
+        <!-- Pie Chart 영역 -->
+        <FrameLayout
+            android:id="@+id/pieChartContainer"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="16dp"
+            android:background="#FFFFFF"
+            android:elevation="4dp" />
+
+        <!-- 요약 정보 텍스트 -->
+        <TextView
+            android:id="@+id/tvSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="이번 달 안에 소진해야 할 재료: 5개"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:padding="8dp"
+            android:background="#E3ECE5" />
+
+    </LinearLayout>
+</ScrollView>

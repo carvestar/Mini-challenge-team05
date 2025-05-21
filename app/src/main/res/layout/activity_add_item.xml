@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
+    android:background="#E3ECE5"
     android:padding="24dp">
 
     <!-- 뒤로가기 버튼 -->
@@ -50,6 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="날짜 선택"
+        android:backgroundTint="#195F4D"
         android:layout_marginBottom="18dp"/>
 
     <!-- 저장/취소 버튼 -->
@@ -59,28 +60,28 @@
         android:layout_height="wrap_content"
         android:gravity="end">
 
-        <Button
+        <android.widget.Button
             android:id="@+id/btnSave"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="저장"
-            android:background="#757575"
+            android:background="#195F4D"
             android:textColor="#FFFFFF"/>
 
         <Space
             android:layout_width="20dp"
             android:layout_height="wrap_content" />
 
-        <Button
+        <android.widget.Button
             android:id="@+id/btnCancel"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="취소"
-            android:background="#757575"
+            android:background="@drawable/button_background"
             android:textColor="#FFFFFF"/>
     </LinearLayout>
 </LinearLayout>
