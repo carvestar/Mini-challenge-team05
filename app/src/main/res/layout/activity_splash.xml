@@ -68,6 +68,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginBottom="26dp"
         android:background="@drawable/bottom_box_bg" />
+    <!--"@drawable/bottom_box_bg" "@drawable/btm_box_blue"-->
 
     <TextView
         android:layout_width="wrap_content"

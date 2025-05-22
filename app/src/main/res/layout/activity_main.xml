@@ -17,5 +17,6 @@ android:layout_height="match_parent">
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
     app:menu="@menu/btm_navi_menu"
-    android:background="@drawable/bg_gradient"/>
+    android:background="#E3E3E3"/>
+    <!--"#FAFAFA" "@drawable/bg_gradient"-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

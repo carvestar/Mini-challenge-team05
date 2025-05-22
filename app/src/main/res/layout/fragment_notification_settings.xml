@@ -10,16 +10,19 @@
     <!-- #E3ECE5 / "#FAFAFA"-->
 
     <!-- 제목 -->
+    <!-- 앱 타이틀 -->
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="🔔 알림 설정"
         android:textSize="24sp"
+        android:textAlignment="center"
         android:textStyle="bold"
-        android:textColor="#212121"
-        android:gravity="center"
-        android:paddingBottom="24dp" />
+        android:padding="18dp"
+        android:background="#195F4D"
+        android:textColor="#FFFFFF"/>
+
 
     <!-- 알림 사용 스위치 -->
     <androidx.appcompat.widget.SwitchCompat
@@ -29,7 +32,36 @@
         android:text="유통기한 알림 받기"
         android:textSize="18sp"
         android:textColor="#333333"
-        android:padding="12dp" />
+        android:padding="12dp"
+        android:layout_marginTop="20dp"/>
+
+    <!-- 마스코트 + 말풍선 추가 부분 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/tv_mascot_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="제가 알려드릴게요!"
+            android:textSize="18sp"
+            android:textColor="#333333"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/speech_bubble_background"
+            android:padding="8dp" />
+
+        <ImageView
+            android:id="@+id/iv_mascot"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/mascoat"
+            android:contentDescription="마스코트 이미지" />
+    </LinearLayout>
 
     <!-- 알림 며칠 전 설정 -->
     <TextView
@@ -37,9 +69,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="며칠 전에 알려줄까요?"
-        android:textSize="16sp"
-        android:textColor="#555555"
-        android:paddingTop="32dp" />
+        android:textSize="17sp"
+        android:textColor="#555555" />
 
     <!-- 라디오 버튼 그룹으로 선택 -->
     <RadioGroup
@@ -83,5 +114,6 @@
         android:textSize="16sp"
         android:padding="12dp" />
 <!--"#4CAF50"-->
+
 
 </LinearLayout>

@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#E3ECE5"
-    android:padding="24dp">
+    android:layout_height="match_parent">
+
+    <!-- 배경 네모 박스 3개 (상단, 중단, 하단) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- 상단 박스 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_weight="0"
+            android:background="#195F4D" />
+        <!-- 중단 박스 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6"
+            android:background= "#E3ECE5" />
+        <!--"#E3ECE5" "#C5E1A5" -->
+        <!-- 하단 박스 -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#195F4D" />
+    </LinearLayout>
 
     <!-- 뒤로가기 버튼 -->
     <ImageButton
@@ -15,17 +40,55 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@android:drawable/ic_menu_revert"
         android:contentDescription="뒤로가기"
+        android:layout_marginTop="4dp"
         android:layout_gravity="start"/>
 
-    <!-- 제목 -->
-    <TextView
+    <!-- 기존 내용 -->
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="식재료 추가"
-        android:textSize="22sp"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp"/>
+        android:layout_height="match_parent"
+        android:padding="24dp">
+
+    <!-- 제목 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="16dp"
+            android:text="식재료 추가"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+
+        <!-- 마스코트 + 말풍선 추가 부분 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/tv_mascot_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내 안에 너 있다."
+                android:textSize="18sp"
+                android:textColor="#333333"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/speech_bubble_background"
+                android:padding="8dp" />
+
+            <ImageView
+                android:id="@+id/iv_mascot"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:src="@drawable/mas3"
+                android:contentDescription="마스코트 이미지" />
+        </LinearLayout>
 
     <!-- 식재료 이름 입력란 -->
     <EditText
@@ -85,3 +148,4 @@
             android:textColor="#FFFFFF"/>
     </LinearLayout>
 </LinearLayout>
+</FrameLayout>
