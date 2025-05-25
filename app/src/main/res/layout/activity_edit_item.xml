@@ -103,6 +103,13 @@
         android:layout_marginTop="17dp"
         android:layout_marginBottom="18dp"/>
 
+        <Button
+            android:id="@+id/btnSelectIcon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="아이콘 선택"
+            android:backgroundTint="#195F4D"/>
+
     <!-- 삭제/저장/취소 버튼 -->
         <LinearLayout
             android:layout_width="match_parent"

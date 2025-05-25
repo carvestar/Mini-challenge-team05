@@ -114,7 +114,14 @@
         android:layout_height="wrap_content"
         android:text="날짜 선택"
         android:backgroundTint="#195F4D"
-        android:layout_marginBottom="18dp"/>
+        android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/btnSelectIcon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="아이콘 선택"
+            android:backgroundTint="#195F4D"/>
 
     <!-- 저장/취소 버튼 -->
     <LinearLayout
@@ -146,6 +153,8 @@
             android:text="취소"
             android:background="@drawable/button_background"
             android:textColor="#FFFFFF"/>
+
+
     </LinearLayout>
 </LinearLayout>
 </FrameLayout>

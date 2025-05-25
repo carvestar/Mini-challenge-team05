@@ -20,10 +20,15 @@ public class FoodItem {
     @ColumnInfo(name = "expiry")
     private String expiry; // 유통기한 (문자열로 저장)
 
+    @ColumnInfo(name = "iconResId") // 아이콘 리소스 ID 추가
+    private int iconResId;
+
+
     // 생성자: 이름과 유통기한을 받아 초기화
-    public FoodItem(String name, String expiry) {
+    public FoodItem(String name, String expiry, int iconResId) {
         this.name = name;
         this.expiry = expiry;
+        this.iconResId = iconResId;
     }
 
     // ID 반환
@@ -41,6 +46,13 @@ public class FoodItem {
         return expiry;
     }
 
+    public int getIconResId() {
+        return iconResId;
+    }
+
+    public void setIconResId(int iconResId) {
+        this.iconResId = iconResId;
+    }
 
     public boolean isExpiringSoon() {
         // 유통기한까지 3일 이하 남았는지 확인

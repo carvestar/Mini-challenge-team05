@@ -57,7 +57,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         }
 
         // 기본 이미지 설정
-        holder.ivFoodImage.setImageResource(R.drawable.eggs); // 예시로 eggs.png 사용
+        holder.ivFoodImage.setImageResource(item.getIconResId()); // 수정
 
         // 수정 버튼 클릭 시 EditItemActivity 호출
         holder.btnEdit.setOnClickListener(v -> {
@@ -65,6 +65,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             intent.putExtra("id", item.getId());
             intent.putExtra("name", item.getName());
             intent.putExtra("expiry", item.getExpiry());
+            intent.putExtra("iconResId", item.getIconResId()); // 추가
             context.startActivity(intent);
         });
     }

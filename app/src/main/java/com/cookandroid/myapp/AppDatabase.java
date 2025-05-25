@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {FoodItem.class}, version = 1) // DB에 포함될 엔티티와 버전 설정
+@Database(entities = {FoodItem.class}, version = 2) // DB에 포함될 엔티티와 버전 설정
 public abstract class AppDatabase extends RoomDatabase {
     // 싱글톤 인스턴스를 저장할 변수
     private static AppDatabase INSTANCE;

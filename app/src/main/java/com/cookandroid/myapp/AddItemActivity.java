@@ -15,19 +15,41 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.widget.Toast;
+
 public class AddItemActivity extends AppCompatActivity {
     // UI 요소 선언
     private EditText etFoodName;
-    private Button btnSelectDate, btnSave, btnCancel;
+    private Button btnSelectDate, btnSave, btnCancel, btnSelectIcon;
     private ImageButton btnBack;
 
     // 사용자가 선택한 날짜를 저장할 변수
     private String selectedDate = "";
+    private int selectedIconResId = R.drawable.all; // 기본 아이콘
+
+    // 아이콘 목록 (drawable에 있는 아이콘 리소스들)
+    private int[] iconList = {
+            R.drawable.eggs,
+            R.drawable.drink,
+            R.drawable.v,
+            R.drawable.snack,
+            R.drawable.pork,
+            R.drawable.fish
+    };
+
+    private String[] iconNames = {
+            "달걀", "음료", "채소", "간식", "고기", "생선"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+
+        btnSelectIcon = findViewById(R.id.btnSelectIcon); // 이거 꼭 있어야 함
+        btnSelectIcon.setOnClickListener(v -> showIconSelectionDialog());
 
         // XML에서 정의한 뷰들을 연결
         etFoodName = findViewById(R.id.etFoodName);
@@ -35,6 +57,7 @@ public class AddItemActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
         btnCancel = findViewById(R.id.btnCancel);
         btnBack = findViewById(R.id.btnBack);
+        btnSelectIcon = findViewById(R.id.btnSelectIcon);
 
         // XML에서 정의한 뷰들을 연결
         btnSelectDate.setOnClickListener(v -> showDatePicker());
@@ -63,6 +86,18 @@ public class AddItemActivity extends AppCompatActivity {
         dialog.show(); // 날짜 선택 다이얼로그 표시
     }
 
+    private void showIconSelectionDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("식재료 아이콘 선택");
+
+        builder.setItems(iconNames, (dialog, which) -> {
+            selectedIconResId = iconList[which];
+            Toast.makeText(this, iconNames[which] + " 아이콘 선택됨", Toast.LENGTH_SHORT).show();
+        });
+
+        builder.show();
+    }
+
     // 사용자가 입력한 식재료 정보를 DB에 저장하는 메서드
     private void saveFoodItem() {
         String name = etFoodName.getText().toString().trim();
@@ -76,7 +111,7 @@ public class AddItemActivity extends AppCompatActivity {
         // Room을 통한 데이터 저장
         new Thread(() -> {
             AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-            FoodItem item = new FoodItem(name, selectedDate);
+            FoodItem item = new FoodItem(name, selectedDate, selectedIconResId);
             db.foodItemDao().insert(item); // 식재료 DB에 삽입
 
             runOnUiThread(() -> {

@@ -22,10 +22,10 @@ android:gravity="center_vertical">
     android:id="@+id/ivFoodImage"
     android:layout_width="80dp"
     android:layout_height="80dp"
-    android:src="@drawable/eggs"
     android:contentDescription="식재료 이미지"
     android:scaleType="centerCrop"
-    android:layout_marginEnd="16dp" />
+    android:layout_marginEnd="16dp"
+    android:src="@drawable/all"/>
 
 <!-- 오른쪽 영역: 텍스트와 버튼 정렬 -->
 <LinearLayout

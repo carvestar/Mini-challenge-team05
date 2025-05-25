@@ -13,10 +13,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Calendar;
 import java.util.Locale;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.widget.Toast;
+
 public class EditItemActivity extends AppCompatActivity {
     private EditText etFoodName;
     private Button btnSelectDate, btnSave, btnDelete, btnCancel;
     private ImageButton btnBack;
+
+    private Button btnSelectIcon;
+    private int selectedIconResId = R.drawable.all; // 기본 아이콘
+
+    private int[] iconList = {
+            R.drawable.eggs,
+            R.drawable.drink,
+            R.drawable.v,
+            R.drawable.snack,
+            R.drawable.pork,
+            R.drawable.fish
+    };
+
+    private String[] iconNames = {
+            "달걀", "음료", "채소", "간식", "고기", "생선"
+    };
+
 
     // 선택된 날짜와 수정 대상의 ID
     private String selectedDate = "";
@@ -24,10 +45,17 @@ public class EditItemActivity extends AppCompatActivity {
 
     private FoodItem originalItem;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
+
+        btnSelectIcon = findViewById(R.id.btnSelectIcon); // 아이콘 선택 버튼 연결
+        btnSelectIcon.setOnClickListener(v -> showIconSelectionDialog()); // 클릭 시 다이얼로그 표시
+// onCreate 안에 추가하세요:
+        selectedIconResId = getIntent().getIntExtra("iconResId", R.drawable.all);
+
 
         etFoodName = findViewById(R.id.etFoodName);
         btnSelectDate = findViewById(R.id.btnSelectDate);
@@ -78,6 +106,19 @@ public class EditItemActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    private void showIconSelectionDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("식재료 아이콘 선택");
+
+        builder.setItems(iconNames, (dialog, which) -> {
+            selectedIconResId = iconList[which];
+            Toast.makeText(this, iconNames[which] + " 아이콘 선택됨", Toast.LENGTH_SHORT).show();
+        });
+
+        builder.show();
+    }
+
+
     // 수정(Room DB 업데이트)
     private void updateItem() {
         String name = etFoodName.getText().toString().trim();
@@ -95,7 +136,7 @@ public class EditItemActivity extends AppCompatActivity {
         new Thread(() -> {
             AppDatabase db = AppDatabase.getInstance(getApplicationContext());
             // 수정할 항목 객체 생성 및 ID 설정
-            FoodItem updated = new FoodItem(name, selectedDate);
+            FoodItem updated = new FoodItem(name, selectedDate, selectedIconResId);
             updated.id = itemId;
             // DB에 업데이트 요청
             db.foodItemDao().update(updated);
@@ -114,7 +155,7 @@ public class EditItemActivity extends AppCompatActivity {
         new Thread(() -> {
             AppDatabase db = AppDatabase.getInstance(getApplicationContext());
             // 삭제할 항목 객체 생성
-            FoodItem toDelete = new FoodItem("", "");
+            FoodItem toDelete = new FoodItem("", "", R.drawable.all);
             toDelete.id = itemId;
             // DB에 삭제 요청
             db.foodItemDao().delete(toDelete);
