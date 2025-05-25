@@ -1,83 +1,55 @@
 package com.cookandroid.myapp;
-// 식재료 목록 및 추가/수정 화면 이동 기능
+// 앱의 메인 액티비티: 하단 탭으로 프래그먼트 전환 제어
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int REQUEST_ADD = 1;
-    private static final int REQUEST_EDIT = 2;
 
-    private RecyclerView recyclerView;
-    private FoodAdapter adapter;
-    private ArrayList<FoodItem> foodList;
-    private Button btnAddItem;
+    private BottomNavigationView bottomNavigationView; // 하단 네비게이션 바
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        foodList = new ArrayList<>();
-        foodList.add(new FoodItem("우유", "2025-05-25"));
-        foodList.add(new FoodItem("달걀", "2025-05-20"));
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // 앱 시작 시 기본 프래그먼트 로드 (식재료 목록)
+        if (savedInstanceState == null) {
+            loadFragment(new HomeFragment());
+            bottomNavigationView.setSelectedItemId(R.id.nav_list); // 홈을 기본 선택
+        }
 
-        adapter = new FoodAdapter(this, foodList, new FoodAdapter.OnItemClickListener() {
-            @Override
-            public void onEditClick(int position) {
-                FoodItem item = foodList.get(position);
-                Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
-                intent.putExtra("name", item.getName());
-                intent.putExtra("expiry", item.getExpiry());
-                intent.putExtra("position", position);
-                startActivityForResult(intent, REQUEST_EDIT);
+        // 메뉴 클릭 이벤트 처리
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment;
+
+            int id = item.getItemId();
+
+            if (id == R.id.nav_home) {
+                selectedFragment = new NotificationSettingsFragment();  // 알림 설정
+            } else if (id == R.id.nav_list) {
+                selectedFragment = new HomeFragment();                  // 식재료 목록
+            } else if (id == R.id.nav_settings) {
+                selectedFragment = new StatisticsFragment();            // 통계 화면
+            } else {
+                return false;
             }
-        });
-        recyclerView.setAdapter(adapter);
 
-        btnAddItem = findViewById(R.id.btnAddItem);
-        btnAddItem.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
-            startActivityForResult(intent, REQUEST_ADD);
+            loadFragment(selectedFragment); // 프래그먼트 교체
+            return true;
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (data == null) return;
-
-        if (requestCode == REQUEST_ADD && resultCode == RESULT_OK) {
-            String name = data.getStringExtra("name");
-            String expiry = data.getStringExtra("expiry");
-            foodList.add(new FoodItem(name, expiry));
-            adapter.notifyDataSetChanged();
-        } else if (requestCode == REQUEST_EDIT) {
-            int position = data.getIntExtra("position", -1);
-            if (position == -1) return;
-
-            if (resultCode == RESULT_OK) {
-                String name = data.getStringExtra("name");
-                String expiry = data.getStringExtra("expiry");
-                foodList.set(position, new FoodItem(name, expiry));
-                adapter.notifyDataSetChanged();
-            } else if (resultCode == RESULT_FIRST_USER) { // 삭제 처리
-                foodList.remove(position);
-                adapter.notifyDataSetChanged();
-            }
-        }
+    // 선택된 프래그먼트를 fragment_container에 로드
+    private void loadFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
 }

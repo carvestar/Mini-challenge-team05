@@ -50,9 +50,9 @@
             android:textColor="#FF6347"
             android:padding="8dp" />
 
-        <!-- Pie Chart 영역 -->
-        <FrameLayout
-            android:id="@+id/pieChartContainer"
+        <!-- Pie Chart 영역: FrameLayout → PieChart로 직접 수정 -->
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginTop="16dp"

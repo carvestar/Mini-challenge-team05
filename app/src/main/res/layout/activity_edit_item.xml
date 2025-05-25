@@ -93,21 +93,21 @@
         android:layout_height="wrap_content"
         android:text="유통기한"
         android:textSize="16sp"
-        android:layout_margintop="17dp"/>
+        android:layout_marginTop="17dp"/>
     <Button
         android:id="@+id/btnSelectDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="날짜 선택"
         android:backgroundTint="#195F4D"
-        android:layout_margintop="17dp"
+        android:layout_marginTop="17dp"
         android:layout_marginBottom="18dp"/>
 
     <!-- 삭제/저장/취소 버튼 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margintop="10dp"
+            android:layout_marginTop="10dp"
             android:gravity="end"
             android:orientation="horizontal">
 

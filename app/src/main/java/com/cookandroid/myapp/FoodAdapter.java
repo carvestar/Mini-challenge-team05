@@ -1,5 +1,5 @@
 package com.cookandroid.myapp;
-// RecyclerView에서 식재료 항목을 표시하고 수정 버튼 처리하는 어댑터
+// 식재료 목록 RecyclerView에 표시
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,59 +7,69 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
-
     private Context context;
     private ArrayList<FoodItem> foodList;
-    private OnItemClickListener listener;
 
-    public interface OnItemClickListener {
-        void onEditClick(int position);
-    }
-
-    public FoodAdapter(Context context, ArrayList<FoodItem> foodList, OnItemClickListener listener) {
+    // 생성자: context와 식재료 리스트 초기화
+    public FoodAdapter(Context context, ArrayList<FoodItem> foodList) {
         this.context = context;
         this.foodList = foodList;
-        this.listener = listener;
     }
 
+    // 식재료 리스트 갱신 및 RecyclerView 갱신 알림
+    public void setFoodList(ArrayList<FoodItem> newList) {
+        this.foodList = newList;
+        notifyDataSetChanged();
+    }
+
+    // ViewHolder를 생성하고 item_food.xml과 연결
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FoodAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_food, parent, false);
         return new ViewHolder(view);
     }
 
+    // ViewHolder에 데이터 바인딩
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FoodAdapter.ViewHolder holder, int position) {
         FoodItem item = foodList.get(position);
+        // 식재료 이름 및 유통기한 표시
         holder.tvFoodName.setText(item.getName());
         holder.tvExpiry.setText("유통기한: " + item.getExpiry());
 
-        // 유통기한 임박 여부 표시 (예: 3일 이내 빨간 경고)
+        // 유통기한 경고 여부
         if (item.isExpiringSoon()) {
-            holder.tvWarning.setVisibility(View.VISIBLE);
+            holder.tvWarning.setVisibility(View.VISIBLE); // "임박" 경고 표시
+            holder.tvExpiry.setTextColor(context.getResources().getColor(android.R.color.holo_red_dark));
         } else {
-            holder.tvWarning.setVisibility(View.GONE);
+            holder.tvWarning.setVisibility(View.GONE); // 경고 숨김
+            holder.tvExpiry.setTextColor(context.getResources().getColor(android.R.color.black));
         }
 
+        // 기본 이미지 설정
+        holder.ivFoodImage.setImageResource(R.drawable.eggs); // 예시로 eggs.png 사용
+
+        // 수정 버튼 클릭 시 EditItemActivity 호출
         holder.btnEdit.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onEditClick(position);
-            }
+            Intent intent = new Intent(context, EditItemActivity.class);
+            intent.putExtra("id", item.getId());
+            intent.putExtra("name", item.getName());
+            intent.putExtra("expiry", item.getExpiry());
+            context.startActivity(intent);
         });
     }
 
+    // 항목 개수 반환
     @Override
     public int getItemCount() {
         return foodList.size();
@@ -68,6 +78,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvFoodName, tvExpiry, tvWarning;
         Button btnEdit;
+        ImageView ivFoodImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,6 +86,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             tvExpiry = itemView.findViewById(R.id.tvExpiry);
             tvWarning = itemView.findViewById(R.id.tvWarning);
             btnEdit = itemView.findViewById(R.id.btnEditFood);
+            ivFoodImage = itemView.findViewById(R.id.ivFoodImage);
         }
     }
 }
