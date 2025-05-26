@@ -16,6 +16,21 @@ import androidx.fragment.app.Fragment;
 
 import com.cookandroid.myapp.utils.PreferenceManager;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.SystemClock;
+
+// Fragment 상단 import 추가
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import androidx.core.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
+
+import android.provider.Settings;
+
 public class NotificationSettingsFragment extends Fragment {
     private SwitchCompat switchNotification; // 알림 스위치
     private RadioGroup radioGroup;           // 며칠 전 알림 보낼지 선택
@@ -31,6 +46,13 @@ public class NotificationSettingsFragment extends Fragment {
         switchNotification = view.findViewById(R.id.switch_notification);
         radioGroup = view.findViewById(R.id.radio_group_days);
         btnSave = view.findViewById(R.id.btn_save);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1001);
+            }
+        }
 
         // 저장된 설정 불러오기
         boolean enabled = PreferenceManager.isNotificationEnabled(requireContext());
@@ -51,6 +73,31 @@ public class NotificationSettingsFragment extends Fragment {
 
             PreferenceManager.saveNotificationSettings(requireContext(), newEnabled, selectedDays);
             Toast.makeText(getContext(), "설정이 저장되었습니다", Toast.LENGTH_SHORT).show();
+
+            // 테스트용: 3초 뒤 알림 예약
+            if (newEnabled) {
+                AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
+                Intent intent = new Intent(requireContext(), AlarmReceiver.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                        requireContext(), 0, intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+                );
+
+                long triggerTime = System.currentTimeMillis() + 3 * 1000; // 3초 뒤
+                // alarmManager는 이미 선언되어 있다고 했으니, 다시 선언하지 않고 사용
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    if (alarmManager.canScheduleExactAlarms()) {
+                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
+                    } else {
+                        // intent도 이미 있다면 이름 바꾸기 (예: requestIntent)
+                        Intent requestIntent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                        startActivity(requestIntent);
+                    }
+                } else {
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerTime, pendingIntent);
+                }
+
+            }
         });
 
         return view;
